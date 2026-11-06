@@ -1,0 +1,17 @@
+name: geo
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - gdal
+  - geopandas
+  - rasterio
+  - fiona
+  - shapely
+  - pyproj
+  - pillow
+  - pip
+  - pip:
+    - bcdata==0.17.2
+    - textual
+    - lxml

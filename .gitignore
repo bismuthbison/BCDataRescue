@@ -1,0 +1,12 @@
+# Downloaded BC open data (layers/, catalogue/, manifest, cached index). Large and re-downloadable.
+# Recreate it by running bcdata_tui.py.
+bcdata/
+
+# Python
+__pycache__/
+*.pyc
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
