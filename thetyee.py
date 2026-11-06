@@ -14,7 +14,7 @@ How it works
     resolution and network access switched off, and article URLs are only fetched when they point at
     thetyee.ca, so a tampered feed can't make this tool request other (e.g. internal) addresses.
 """
-from datetime import datetime
+from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from urllib.parse import urlparse
 
@@ -78,7 +78,9 @@ def fetch_feed() -> list[dict]:
             "published": published,
             "topics": [t.text.strip() for t in it.findall(DC + "subject") if t.text and t.text.strip()],
         })
-    items.sort(key=lambda a: a["published"] or datetime.min.astimezone(), reverse=True)
+    # Undated items sort last. (datetime.min.astimezone() can't be used here: converting year 1 to local time
+    # raises an error, on Linux and Windows alike.)
+    items.sort(key=lambda a: a["published"] or datetime.min.replace(tzinfo=timezone.utc), reverse=True)
     return items
 
 
